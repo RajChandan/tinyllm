@@ -1,0 +1,10 @@
+the cat drinks milk
+the dog drinks water
+the cat eats food
+the dog eats food
+the cat sleeps on the mat
+the dog sleeps on the floor
+the cat runs
+the dog runs
+the cat drinks water
+the dog drinks milk
