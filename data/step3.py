@@ -108,3 +108,8 @@ logits = model(x)
 print("Logits : ", logits)
 
 print("Logits shape : ", logits.shape)
+
+
+loss = F.cross_entropy(logits, y)
+
+print("Loss : ", loss.item())
