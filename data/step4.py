@@ -140,3 +140,48 @@ for step in range(1000):
 
     if step % 100 == 0:
         print(f"step {step:4d} | Loss : {loss.item():.4f}")
+
+
+def inspect_next_token(character):
+    token_id = char_to_id[character]
+
+    idx = torch.tensor([token_id], dtype=torch.long)
+
+    logits, _ = model(idx)
+
+    probabilities = F.softmax(logits[0], dim=0)
+
+    values, indices = torch.topk(probabilities, k=5)
+    print(f"Given character :  {repr(character)}")
+
+    for probability, token_index in zip(values, indices):
+        predicted_char = id_to_char[token_index.item()]
+
+        print(f"{repr(predicted_char):>6} : {probability.item() * 100:.2f}%")
+
+
+inspect_next_token("t")
+inspect_next_token("h")
+inspect_next_token(" ")
+inspect_next_token("c")
+inspect_next_token("a")
+
+
+def generate(model, start_char, max_new_tokens=100):
+    current_id = char_to_id[start_char]
+    generated_ids = [current_id]
+
+    for _ in range(max_new_tokens):
+        idx = torch.tensor([current_id], dtype=torch.long)
+        logits, _ = model(idx)
+        probabilities = F.softmax(logits[0], dim=0)
+
+        next_id = torch.multinomial(probabilities, num_samples=1).item()
+
+        generated_ids.append(next_id)
+
+        current_id = next_id
+    return decode(generated_ids)
+
+
+print(f"Generated text : {generate(model,'t',200)}")
