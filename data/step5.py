@@ -190,7 +190,7 @@ print(f"Generated text : {generate(model,'t',200)}")
 ##########################
 # step5.py
 
-print(f"################## Step 5 ########################")
+print(f"################## Step 5 : Embedding ########################")
 
 
 block_size = 8
