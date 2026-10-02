@@ -213,7 +213,7 @@ token_embeddings = token_embedding_table(idx)
 
 print(f"token embedding shape : {token_embeddings.shape}")
 
-positions = torch.arrange(len(idx))
+positions = torch.arange(len(idx))
 
 print(f"Positions : {positions}")
 
@@ -225,3 +225,16 @@ print(f"positions embedding shape : {position_embeddings.shape}")
 x = token_embeddings + position_embeddings
 
 print(f"Final representation shape : {x.shape}")
+
+head_size = 16
+key = nn.Linear(n_embed, head_size, bias=False)
+query = nn.Linear(n_embed, head_size, bias=False)
+value = nn.Linear(n_embed, head_size, bias=False)
+
+K = key(x)
+Q = query(x)
+V = value(x)
+
+print(f"K shape : {K.shape}")
+print(f"Q shape : {Q.shape}")
+print(f"V shape : {V.shape}")
