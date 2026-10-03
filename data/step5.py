@@ -238,3 +238,16 @@ V = value(x)
 print(f"K shape : {K.shape}")
 print(f"Q shape : {Q.shape}")
 print(f"V shape : {V.shape}")
+
+scores = Q @ K.transpose(-2, -1)
+
+print(f"Q shape : {Q.shape}")
+print(f"K transposed shape : {K.transpose(-2,-1).shape}")
+print(f"Attention scores shape : {scores.shape}")
+
+print(f"Final T query : {Q[-1]}")
+print(f"Final T attention scores : {scores[-1]}")
+print(f"Manual score of final T looking at C :")
+manual_score = torch.dot(Q[-1], K[4])
+print(manual_score.item())
+print(f"Same scores from matrix : {scores[-1,4].item()}")
